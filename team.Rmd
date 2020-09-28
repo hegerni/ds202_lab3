@@ -107,3 +107,168 @@ ggplot(happinessVSage, aes(x=Age.of.respondent, fill=General.happiness)) + geom_
 ```
   
 For the second variable to explore we chose to look at age of respondents vs general happiness levels. The respondents that are happy peak in the late 20s but are overall very even throughout all ages. The very happy participants are lesser for young and old respondents, but higher for middle-aged respondents. The largest group of not too happy respondents is the oldest group (almost 90). Overall most of the happiness levels stay relatively constant over life though, there are just the small changes previously mentioned. For this analysis we used age of respondent and general happiness variables.
+
+
+## Individual2
+
+```{r}
+library(readxl)
+library(ggplot2)
+library(tidyverse)
+library(dplyr)
+dat <- readxl::read_xls('./GSS.xls')
+str(dat)
+```
+
+
+
+# Replacing spaces with a "." in column names so we can rename later
+```{r}
+names(dat) <- str_replace_all(names(dat), c(" " = "."))
+str(dat)
+```
+
+
+
+# Renaming column names for easier use 
+```{r}
+dat <- rename(dat,"Age" = Age.of.respondent, "Education" = Highest.year.of.school.completed, "Sex" = Respondents.sex, "Race" = Race.of.respondent, "Party" = Political.party.affiliation, "Happiness" = General.happiness)
+head(dat)
+```
+
+# More Cleaning
+```{r}
+dat <- dat %>%
+  mutate(Age = as.numeric(Age), Education = as.numeric(Education))
+head(dat)
+```
+
+## Question 1
+```{r}
+Educ <- dat[c('Party', 'Education')]
+Educ <- filter(Educ, Educ$Education != 'No answer')
+Educ <- filter(Educ, Educ$Education != 'Dont know')
+Educ <- aggregate(Educ$Education, list(Educ$Party), FUN = mean)
+Educ
+```
+```{r}
+ggplot(Educ, aes(x = Group.1, weight = x)) + geom_bar() + coord_flip()
+```
+
+Through further investigation, I can declare that the most educaed people are Strong Republicans. On the other hand, Strong Democrats did not seem to have as much education compared to Republicans.The Independent category seemed to have less education compared to both Republicans and Democrats. Lastly, people who do not know their political party affiliation have the lowest amount of education.
+
+## Question 2
+```{r}
+Educated <- dat %>%
+  select(Party, Education) %>%
+  drop_na %>%
+  group_by(Party) %>%
+  mutate(Education - as.numeric(Education, na.rm = TRUE)) %>%
+  filter(Education > median(Education, na.rm = TRUE))
+str(Educated)
+```
+
+
+## Question 3
+```{r}
+Question_Three <- dat %>%
+  select(Happiness, Marital.status) %>%
+  drop_na %>%
+  filter(Marital.status != 'No Answer' & Marital.status != 'No answer' & Happiness != 'Dont know' & Happiness != 'No answer' & Happiness != 'Not applicable') %>%
+  mutate(Marital.status = factor(Marital.status, levels = c('Never married', 'Divorced', 'Seperated', 'Widowed', 'Married'))) %>%
+  arrange(Marital.status)
+summary(Question_Three)
+
+ggplot(Question_Three, aes(x=Marital.status, fill=Happiness)) + geom_bar()
+
+
+```
+
+
+
+
+## Question 4
+```{r}
+Q4 <- dat %>%
+  select(Happiness, Marital.status, Party) %>%
+  drop_na %>%
+  filter(Marital.status != "No Answer" & Marital.status != 'No answer' &  Happiness != 'Dont know' & Happiness != 'No answer' & Happiness != 'Not applicable') %>%
+  mutate(Marital.status = factor(Marital.status, levels = c('Never married', 'Divorced', 'Seperated', 'Widowed', 'Married'))) %>%
+  arrange(Marital.status)
+
+
+
+ggplot(Q4, aes(x=Marital.status, fill=Happiness)) + geom_bar() + facet_grid(~Party) + coord_flip()
+
+
+```
+There seems to be more Married people that are very happy while having a political affiliation of either not str democrat or not str republican. The same can be said for married people who are a Strong Democrat or a Strong Republican. 
+
+
+
+
+
+
+## Question 5
+```{r}
+marriage.Seducation <- dat %>%
+  select(Education, Marital.status) %>% 
+  drop_na %>% 
+  filter(Marital.status != 'No Answer' & Marital.status != 'No answer') %>% 
+  mutate(Marital.status = factor(Marital.status, levels = c('Never married', 'Divorced', 'Seperated', 'Widowed', 'Married'))) %>% 
+  arrange(Marital.status)
+summary(marriage.Seducation)
+ggplot(dat, aes(x = Marital.status, y = Education)) + geom_boxplot()
+```
+
+
+
+
+
+
+
+
+## Question 6
+The two questions: Is there a relationship between Race and Education? Does Age affect happiness?
+
+```{r}
+Q6 <- dat %>%
+  select(Happiness, Race) %>%
+  drop_na %>%
+  filter(Race != 'No Answer' & Race != 'Dont know' & Happiness != 'Dont know' & Happiness != 'No answer' & Happiness != 'Not applicable') %>%
+  mutate(Race = factor(Race, levels = c('White', 'Black', 'Other'))) %>%
+  arrange(Race)
+str(Q6)
+ggplot(Q6, aes(x = Race, fill=Happiness)) + geom_bar()
+```
+
+
+
+
+
+
+This bar chart is great except for the fact that there are not as many "other" and "black" people in the data compared to "white". The visualization is still very usefull because you can judge off of the size relative to the proportion of the total count for each Race. From the visualization, I can conclude that there is more Very happy "white" people compared to any other Race. Also, "black" and "other" seem to have more Pretty happy people compared to "white" people.
+
+```{r}
+
+Age.Happiness <- dat %>%
+  select(Happiness, Age) %>%
+  drop_na %>%
+  filter(Happiness != 'Dont know' & Happiness != 'No answer' & Happiness != 'Not applicable') %>%
+  arrange(Age)
+summary(Age.Happiness)
+
+
+ggplot(Age.Happiness, aes(x = Age, fill = Happiness)) + geom_bar()
+
+
+
+```
+
+
+
+
+
+
+This bar chart shows the decline in happiness as you get older. There is a spike of people being the happiest when they are in their 20s and 30s, but they slowly get less happier as they age. 
+
