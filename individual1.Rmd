@@ -107,3 +107,12 @@ ggplot(happinessVSage, aes(x=Age.of.respondent, fill=General.happiness)) + geom_
 ```
   
 For the second variable to explore we chose to look at age of respondents vs general happiness levels. The respondents that are happy peak in the late 20s but are overall very even throughout all ages. The very happy participants are lesser for young and old respondents, but higher for middle-aged respondents. The largest group of not too happy respondents is the oldest group (almost 90). Overall most of the happiness levels stay relatively constant over life though, there are just the small changes previously mentioned. For this analysis we used age of respondent and general happiness variables.
+
+
+Revision and Review Comments:
+
+One thing I would do right away would be to change the column names and make them mcuh shorter. This would be great for the ease of understanding the code and making it easier to write.
+
+I thought all of your visualizations you made were great. They showed a clear and descriptive image of what you were trying to portay.
+
+Overall, there isnt much I would change with what you have. I thought you did a great job!
