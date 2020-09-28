@@ -1,7 +1,7 @@
 ---
-title: "Lab 3 Individual 1"
-author: "Nicholas Heger"
-date: "9/22/2020"
+title: "Lab 3 Team"
+author: "Nicholas Heger and Bennet Brosseau"
+date: "9/27/2020"
 output: html_document
 ---
 
