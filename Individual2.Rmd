@@ -47,7 +47,7 @@ Educ
 ggplot(Educ, aes(x = Group.1, weight = x)) + geom_bar() + coord_flip()
 ```
 
-Through further investigation, I can declare that the most educaed people are Strong Republicans. On the other hand, Strong Democrats did not seem to have as much education compared to Republicans.The Independent category seemed to have less education compared to both Republicans and Democrats. Lastly, people who do not know their political party affiliation have the lowest amount of education.
+Through further investigation, I can declare that the most educated people are Strong Republicans. On the other hand, Strong Democrats did not seem to have as much education compared to Republicans.The Independent category seemed to have less education compared to both Republicans and Democrats. Lastly, people who do not know their political party affiliation have the lowest amount of education.
 
 ## Question 2
 ```{r}
@@ -77,7 +77,7 @@ ggplot(Question_Three, aes(x=Marital.status, fill=Happiness)) + geom_bar()
 ```
 
 
-
+I would add something here discussing how the happiest people both in number of happy respondents and (more importantly) in the proportion of very happy and pretty happy to not too happy was married people.
 
 ## Question 4
 ```{r}
@@ -94,6 +94,7 @@ ggplot(Q4, aes(x=Marital.status, fill=Happiness)) + geom_bar() + facet_grid(~Par
 
 
 ```
+  
 There seems to be more Married people that are very happy while having a political affiliation of either not str democrat or not str republican. The same can be said for married people who are a Strong Democrat or a Strong Republican. 
 
 
@@ -116,8 +117,7 @@ ggplot(dat, aes(x = Marital.status, y = Education)) + geom_boxplot()
 
 
 
-
-
+I would add something here about how widowed people are the least educated and come up with a hypothesis such as: widowed people are likely old and during their primary years of formal education a lot was different and people didn't often get as many years of education as they do now.
 
 
 ## Question 6
@@ -139,7 +139,7 @@ ggplot(Q6, aes(x = Race, fill=Happiness)) + geom_bar()
 
 
 
-This bar chart is great except for the fact that there are not as many "other" and "black" people in the data compared to "white". The visualization is still very usefull because you can judge off of the size relative to the proportion of the total count for each Race. From the visualization, I can conclude that there is more Very happy "white" people compared to any other Race. Also, "black" and "other" seem to have more Pretty happy people compared to "white" people.
+This bar chart is great except for the fact that there are not as many "other" and "black" people in the data compared to "white". The visualization is still very useful because you can judge off of the size relative to the proportion of the total count for each Race. From the visualization, I can conclude that there is more Very happy "white" people compared to any other Race. Also, "black" and "other" seem to have more Pretty happy people compared to "white" people.
 
 ```{r}
 
@@ -162,7 +162,7 @@ ggplot(Age.Happiness, aes(x = Age, fill = Happiness)) + geom_bar()
 
 
 
-This bar chart shows the decline in happiness as you get older. There is a spike of people being the happiest when they are in their 20s and 30s, but they slowly get less happier as they age. 
+This bar chart shows the decline in happiness as you get older. There is a spike of people being the happiest when they are in their 20s and 30s, but they slowly get less happier as they age. I would note that this chart shows more of a decline in respondents as people get older rather than a decline in happiness level. Looking at the proportions of respondents that selected each happiness level at each age is a better indication, which can still be seen from the graph somewhat. The older age groups have a larger proportion that is not too happy.
 
 
 
